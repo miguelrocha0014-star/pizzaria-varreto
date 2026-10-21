@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#c91f2c">
+  <meta name="description" content="Vaporetto Pizzaria em Samambaia Norte, Brasília. Pizza quentinha, sabores para compartilhar e atendimento pelo WhatsApp.">
+  <title>Vaporetto Pizzaria | Samambaia Norte, Brasília</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --red: #c91f2c;
+      --red-dark: #971622;
+      --yellow: #ffc928;
+      --cream: #fffaf0;
+      --white: #ffffff;
+      --ink: #241b19;
+      --muted: #746966;
+      --green: #20b85a;
+      --shadow: 0 18px 50px rgba(49, 24, 17, .13);
+      --radius: 24px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body { margin: 0; font-family: "Montserrat", sans-serif; color: var(--ink); background: var(--cream); }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    .container { width: min(1140px, calc(100% - 40px)); margin-inline: auto; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--red); font-size: .76rem; font-weight: 900; letter-spacing: .15em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 25px; height: 3px; border-radius: 9px; background: var(--yellow); }
+    h1, h2, h3, p { margin-top: 0; }
+    h2 { font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.08; letter-spacing: -.05em; margin-bottom: 18px; font-weight: 900; }
+    .section-intro { max-width: 650px; color: var(--muted); line-height: 1.8; }
+    .btn { display: inline-flex; justify-content: center; align-items: center; gap: 10px; min-height: 52px; padding: 0 24px; border-radius: 999px; border: 0; font: inherit; font-weight: 900; transition: transform .2s ease, box-shadow .2s ease, background .2s ease; cursor: pointer; }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,.13); }
+    .btn-primary { color: var(--ink); background: var(--yellow); }
+    .btn-red { background: var(--red); color: var(--white); }
+    .btn-outline { border: 2px solid rgba(255,255,255,.7); color: white; background: transparent; }
+    .btn svg { width: 19px; height: 19px; flex: none; }
+
+    /* Navbar fixa */
+    .navbar { position: fixed; inset: 0 0 auto; z-index: 1000; background: rgba(255,250,240,.93); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(36,27,25,.08); }
+    .nav-inner { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; font-weight: 900; letter-spacing: -.06em; font-size: 1.3rem; }
+    .brand-mark { width: 43px; height: 43px; display: grid; place-items: center; border-radius: 50% 50% 45% 45%; color: var(--white); background: var(--red); transform: rotate(-8deg); box-shadow: 4px 4px 0 var(--yellow); }
+    .brand-mark svg { width: 25px; height: 25px; transform: rotate(8deg); }
+    .brand small { display: block; font-size: .58rem; letter-spacing: .17em; color: var(--red); margin-top: 2px; }
+    .nav-links { display: flex; align-items: center; gap: clamp(14px, 2.3vw, 28px); font-size: .82rem; font-weight: 700; }
+    .nav-links a:not(.btn):hover { color: var(--red); }
+    .nav-links .btn { min-height: 44px; padding-inline: 18px; font-size: .8rem; }
+    .menu-toggle { display: none; background: none; border: 0; font-size: 1.8rem; color: var(--ink); cursor: pointer; }
+
+    /* Hero */
+    .hero { padding: 138px 0 82px; position: relative; overflow: hidden; background: radial-gradient(circle at 84% 20%, rgba(255,201,40,.25), transparent 25%), var(--cream); }
+    .hero::before { content: "✦"; position: absolute; top: 125px; left: 4%; font-size: 3rem; color: var(--yellow); transform: rotate(15deg); }
+    .hero-grid { display: grid; grid-template-columns: 1.02fr .98fr; gap: 55px; align-items: center; }
+    .hero h1 { font-size: clamp(2.9rem, 6.3vw, 5.6rem); line-height: .99; letter-spacing: -.075em; font-weight: 900; margin: 19px 0 24px; }
+    .hero h1 span { color: var(--red); position: relative; white-space: nowrap; }
+    .hero h1 span::after { content: ""; position: absolute; left: 0; right: 0; bottom: -5px; height: 8px; border-radius: 100%; background: var(--yellow); z-index: -1; transform: rotate(-2deg); }
+    .hero-copy { max-width: 500px; color: var(--muted); font-size: 1.03rem; line-height: 1.85; margin-bottom: 28px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .hero-note { display: flex; align-items: center; gap: 10px; margin-top: 25px; font-size: .8rem; color: var(--muted); font-weight: 700; }
+    .hero-note span { display: grid; place-items: center; width: 28px; height: 28px; background: #fff0c0; color: var(--red); border-radius: 50%; }
+    .hero-visual { min-height: 470px; position: relative; display: grid; place-items: center; }
+    .pizza-halo { position: absolute; width: min(100%, 470px); aspect-ratio: 1; border-radius: 50%; background: var(--yellow); transform: rotate(-10deg); }
+    .pizza-photo { position: relative; z-index: 1; width: min(100%, 460px); aspect-ratio: 1; object-fit: cover; border-radius: 50%; border: 12px solid var(--white); box-shadow: var(--shadow); transform: rotate(5deg); }
+    .floating-tag { position: absolute; z-index: 2; padding: 15px 19px; border-radius: 17px; background: var(--white); box-shadow: var(--shadow); font-weight: 900; font-size: .82rem; }
+    .floating-tag strong { color: var(--red); display: block; font-size: 1.1rem; margin-bottom: 3px; }
+    .tag-top { top: 28px; right: -2px; transform: rotate(5deg); }
+    .tag-bottom { bottom: 25px; left: -2px; transform: rotate(-5deg); }
+    .hero-spark { position: absolute; color: var(--red); font-size: 2.5rem; right: 8%; bottom: 20px; }
+
+    /* Shared sections */
+    section { padding: 88px 0; }
+    .section-head { margin-bottom: 38px; }
+    .center { text-align: center; }
+    .center .section-intro { margin-inline: auto; }
+    .center .eyebrow { justify-content: center; }
+
+    /* Services */
+    .services { background: var(--white); }
+    .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .service-card { background: var(--cream); border-radius: var(--radius); overflow: hidden; transition: transform .25s ease, box-shadow .25s ease; }
+    .service-card:hover { transform: translateY(-7px); box-shadow: var(--shadow); }
+    .service-image { height: 225px; width: 100%; object-fit: cover; }
+    .service-content { padding: 25px; }
+    .service-icon { display: grid; place-items: center; width: 48px; height: 48px; margin-top: -49px; margin-bottom: 18px; position: relative; border-radius: 15px; color: var(--ink); background: var(--yellow); border: 4px solid var(--cream); font-size: 1.3rem; }
+    .service-content h3 { font-size: 1.17rem; font-weight: 900; margin-bottom: 10px; }
+    .service-content p { color: var(--muted); line-height: 1.75; font-size: .9rem; margin-bottom: 0; }
+
+    /* Differentials */
+    .differentials { background: var(--red); color: white; position: relative; overflow: hidden; }
+    .differentials::after { content: "✳"; position: absolute; font-size: 20rem; line-height: 1; opacity: .06; right: -40px; bottom: -100px; }
+    .differentials .eyebrow { color: var(--yellow); }
+    .differentials .section-intro { color: rgba(255,255,255,.78); }
+    .diff-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; position: relative; z-index: 1; }
+    .diff-card { padding: 27px 22px; border: 1px solid rgba(255,255,255,.2); border-radius: 20px; background: rgba(255,255,255,.07); }
+    .diff-icon { width: 50px; height: 50px; display: grid; place-items: center; background: var(--yellow); color: var(--ink); border-radius: 16px; font-size: 1.35rem; margin-bottom: 22px; }
+    .diff-card h3 { font-size: 1rem; margin-bottom: 10px; font-weight: 900; }
+    .diff-card p { color: rgba(255,255,255,.76); font-size: .84rem; line-height: 1.7; margin-bottom: 0; }
+
+    /* Testimonials */
+    .testimonials { background: #fff7df; }
+    .review-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .review-card { background: white; border-radius: 20px; padding: 27px; box-shadow: 0 8px 30px rgba(49,24,17,.05); }
+    .stars { color: #e8a900; letter-spacing: .12em; margin-bottom: 17px; }
+    .review-card blockquote { margin: 0 0 20px; line-height: 1.8; color: #5c504b; font-size: .92rem; }
+    .review-person { display: flex; align-items: center; gap: 12px; font-weight: 900; font-size: .86rem; }
+    .avatar { width: 39px; height: 39px; display: grid; place-items: center; border-radius: 50%; background: #ffe8a0; color: var(--red); font-weight: 900; }
+
+    /* About */
+    .about-grid { display: grid; grid-template-columns: .95fr 1.05fr; align-items: center; gap: 65px; }
+    .about-visual { position: relative; padding: 0 25px 25px 0; }
+    .about-visual img { width: 100%; height: 440px; object-fit: cover; border-radius: 28px; box-shadow: var(--shadow); }
+    .about-visual::after { content: ""; position: absolute; width: 65%; height: 65%; border: 4px solid var(--yellow); border-radius: 28px; right: 0; bottom: 0; z-index: -1; }
+    .about-copy p { color: var(--muted); line-height: 1.9; }
+    .about-points { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 25px 0 30px; }
+    .about-point { display: flex; gap: 10px; align-items: center; font-size: .85rem; font-weight: 700; }
+    .check { display: grid; place-items: center; width: 25px; height: 25px; border-radius: 50%; background: #fff0bd; color: var(--red); flex: none; }
+
+    /* Location */
+    .location { background: var(--white); }
+    .location-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: stretch; }
+    .location-card { padding: 32px; border-radius: var(--radius); background: var(--cream); }
+    .location-card h3 { font-size: 1.3rem; font-weight: 900; margin-bottom: 20px; }
+    .info-row { display: flex; gap: 14px; align-items: flex-start; padding: 17px 0; border-bottom: 1px solid #eadfd3; }
+    .info-row:last-of-type { border-bottom: 0; }
+    .info-icon { display: grid; place-items: center; width: 43px; height: 43px; border-radius: 14px; flex: none; background: var(--yellow); }
+    .info-row strong { display: block; margin-bottom: 5px; font-size: .9rem; }
+    .info-row p { color: var(--muted); font-size: .86rem; line-height: 1.7; margin: 0; }
+    .map-card { overflow: hidden; border-radius: var(--radius); min-height: 400px; background: #eee1cb; position: relative; }
+    .map-card iframe { border: 0; width: 100%; height: 100%; min-height: 400px; display: block; filter: saturate(.8); }
+    .hours-note { margin-top: 14px; color: var(--muted); font-size: .78rem; line-height: 1.6; }
+
+    /* Final CTA + footer */
+    .final-cta { padding: 70px 0; background: var(--yellow); }
+    .cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+    .cta-inner h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 10px; max-width: 650px; }
+    .cta-inner p { margin: 0; color: #57451b; line-height: 1.7; }
+    .cta-inner .btn { background: var(--red); color: white; flex: none; }
+    footer { background: #241b19; color: white; padding: 42px 0 24px; }
+    .footer-main { display: flex; justify-content: space-between; gap: 35px; align-items: flex-start; padding-bottom: 30px; }
+    footer .brand { color: white; }
+    footer .brand small { color: var(--yellow); }
+    .footer-description { max-width: 340px; color: #c7bcb7; font-size: .86rem; line-height: 1.8; margin: 16px 0 0; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; color: #e2d9d5; font-size: .82rem; font-weight: 700; }
+    .footer-links a:hover { color: var(--yellow); }
+    .copyright { border-top: 1px solid rgba(255,255,255,.13); padding-top: 20px; color: #a99d98; font-size: .75rem; display: flex; justify-content: space-between; gap: 20px; }
+
+    .whatsapp-float { position: fixed; z-index: 1100; right: 22px; bottom: 22px; width: 62px; height: 62px; display: grid; place-items: center; border-radius: 50%; background: var(--green); color: white; box-shadow: 0 9px 28px rgba(0,0,0,.23); transition: transform .2s ease; }
+    .whatsapp-float:hover { transform: scale(1.08); }
+    .whatsapp-float svg { width: 31px; height: 31px; }
+    .whatsapp-label { position: absolute; right: 72px; white-space: nowrap; color: white; background: #252525; padding: 9px 12px; border-radius: 10px; font-size: .75rem; font-weight: 700; opacity: 0; transform: translateX(6px); transition: .2s ease; pointer-events: none; }
+    .whatsapp-float:hover .whatsapp-label { opacity: 1; transform: translateX(0); }
+
+    @media (max-width: 900px) {
+      .nav-links { gap: 13px; font-size: .75rem; }
+      .nav-links .btn { padding-inline: 13px; }
+      .hero-grid { gap: 25px; }
+      .hero-visual { min-height: 390px; }
+      .diff-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-grid { gap: 35px; }
+    }
+    @media (max-width: 720px) {
+      .container { width: min(100% - 30px, 560px); }
+      .nav-inner { min-height: 70px; }
+      .menu-toggle { display: block; }
+      .nav-links { display: none; position: absolute; top: 70px; left: 0; right: 0; padding: 20px; background: var(--cream); border-bottom: 1px solid rgba(36,27,25,.1); flex-direction: column; align-items: stretch; gap: 18px; box-shadow: 0 18px 25px rgba(0,0,0,.08); }
+      .nav-links.open { display: flex; }
+      .nav-links .btn { align-self: flex-start; }
+      .hero { padding: 115px 0 55px; }
+      .hero-grid, .about-grid, .location-grid { grid-template-columns: 1fr; }
+      .hero-grid { gap: 10px; }
+      .hero h1 { font-size: clamp(3rem, 13vw, 4.5rem); }
+      .hero-copy { font-size: .95rem; }
+      .hero-visual { min-height: min(88vw, 420px); margin-top: 5px; }
+      .pizza-photo { width: min(85vw, 390px); border-width: 8px; }
+      .pizza-halo { width: min(85vw, 400px); }
+      .floating-tag { padding: 12px 14px; font-size: .72rem; }
+      .floating-tag strong { font-size: .95rem; }
+      section { padding: 65px 0; }
+      .service-grid, .review-grid { grid-template-columns: 1fr; }
+      .service-image { height: 240px; }
+      .diff-grid { gap: 12px; }
+      .diff-card { padding: 20px 16px; }
+      .about-visual img { height: 340px; }
+      .about-points { grid-template-columns: 1fr; }
+      .location-card { padding: 24px; }
+      .map-card, .map-card iframe { min-height: 320px; }
+      .cta-inner, .footer-main { flex-direction: column; align-items: flex-start; }
+      .cta-inner .btn { width: 100%; }
+      .copyright { flex-direction: column; gap: 8px; }
+    }
+    @media (max-width: 390px) {
+      .diff-grid { grid-template-columns: 1fr; }
+      .hero-actions .btn { width: 100%; }
+      .brand { font-size: 1.15rem; }
+      .whatsapp-float { width: 56px; height: 56px; right: 15px; bottom: 15px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a class="brand" href="#inicio" aria-label="Vaporetto, início">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h16l-2 11H6L4 8Z"/><path d="M7 8a5 5 0 0 1 10 0"/><path d="m8 12 2 2m4-2 2 2"/></svg>
+        </span>
+        <span>vaporetto<small>PIZZARIA</small></span>
+      </a>
+      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-links">☰</button>
+      <nav class="nav-links" id="nav-links" aria-label="Navegação principal">
+        <a href="#inicio">Início</a>
+        <a href="#servicos">Cardápio</a>
+        <a href="#diferenciais">Por que a Vaporetto?</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#localizacao">Localização</a>
+        <a class="btn btn-primary" href="https://wa.me/?text=Ol%C3%A1%2C%20Vaporetto!%20Quero%20saber%20mais%20sobre%20o%20card%C3%A1pio." target="_blank" rel="noopener">Fale no WhatsApp <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">Sua próxima pizza favorita</span>
+          <h1>O sabor que<br>junta todo mundo<span>.</span></h1>
+          <p class="hero-copy">Bateu aquela vontade de pizza? A Vaporetto é o ponto de encontro para dividir bons sabores, boas conversas e momentos especiais em Samambaia Norte.</p>
+          <div class="hero-actions">
+            <a class="btn btn-red" href="https://wa.me/?text=Ol%C3%A1%2C%20Vaporetto!%20Quero%20conhecer%20o%20card%C3%A1pio." target="_blank" rel="noopener">Chamar no WhatsApp <span aria-hidden="true">↗</span></a>
+            <a class="btn btn-primary" href="#servicos">Explorar sabores <span aria-hidden="true">↓</span></a>
+          </div>
+          <div class="hero-note"><span>★</span> Feita para compartilhar. Perfeita para repetir.</div>
+        </div>
+        <div class="hero-visual" aria-label="Pizza artesanal com ingredientes frescos">
+          <div class="pizza-halo"></div>
+          <img class="pizza-photo" src="https://images.unsplash.com/photo-1579751626657-72bc17010498?auto=format&fit=crop&w=1000&q=85" alt="Pizza recém-assada com queijo, tomate e manjericão">
+          <div class="floating-tag tag-top"><strong>🍕 É dia de pizza!</strong>Escolha seu sabor</div>
+          <div class="floating-tag tag-bottom"><strong>Feita para reunir</strong>Família, amigos e você</div>
+          <span class="hero-spark" aria-hidden="true">✦</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="services" id="servicos">
+      <div class="container">
+        <div class="section-head center">
+          <span class="eyebrow">Tem sabor para todo mundo</span>
+          <h2>Seu momento pede <span style="color:var(--red)">Vaporetto</span></h2>
+          <p class="section-intro">Do clássico que nunca decepciona à combinação que surpreende: encontre sua próxima favorita e consulte as opções do nosso cardápio pelo WhatsApp.</p>
+        </div>
+        <div class="service-grid">
+          <article class="service-card">
+            <img class="service-image" src="https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?auto=format&fit=crop&w=850&q=85" alt="Pizza de queijo com folhas de manjericão" loading="lazy">
+            <div class="service-content"><span class="service-icon">🍅</span><h3>As clássicas</h3><p>Sabores tradicionais e combinações queridas que sempre têm lugar à mesa.</p></div>
+          </article>
+          <article class="service-card">
+            <img class="service-image" src="https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=850&q=85" alt="Pizza de pepperoni com queijo derretido" loading="lazy">
+            <div class="service-content"><span class="service-icon">🔥</span><h3>Para matar a vontade</h3><p>Uma pizza quentinha para transformar qualquer dia em uma ocasião especial.</p></div>
+          </article>
+          <article class="service-card">
+            <img class="service-image" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=850&q=85" alt="Pizza colorida com diversos ingredientes" loading="lazy">
+            <div class="service-content"><span class="service-icon">🍕</span><h3>Para compartilhar</h3><p>Reúna a galera, escolha os sabores e deixe a conversa ficar por conta da casa.</p></div>
+          </article>
+        </div>
+        <div class="center" style="margin-top:32px"><a class="btn btn-red" href="https://wa.me/?text=Ol%C3%A1%2C%20Vaporetto!%20Pode%20me%20enviar%20o%20card%C3%A1pio%20atual%3F" target="_blank" rel="noopener">Pedir o cardápio no WhatsApp ↗</a></div>
+      </div>
+    </section>
+
+    <section class="differentials" id="diferenciais">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Muito além da pizza</span>
+          <h2>O melhor ingrediente<br>é estar junto.</h2>
+          <p class="section-intro">A gente acredita que uma boa pizza combina com acolhimento, praticidade e momentos que merecem ser aproveitados.</p>
+        </div>
+        <div class="diff-grid">
+          <article class="diff-card"><span class="diff-icon">❤️</span><h3>Feita para compartilhar</h3><p>Uma escolha gostosa para reunir família, amigos ou quem você quiser.</p></article>
+          <article class="diff-card"><span class="diff-icon">🍅</span><h3>Variedade de sabores</h3><p>Opções para diferentes gostos, dos mais tradicionais aos que gostam de variar.</p></article>
+          <article class="diff-card"><span class="diff-icon">💬</span><h3>Atendimento direto</h3><p>Tire dúvidas e consulte o cardápio sem complicação, pelo WhatsApp.</p></article>
+          <article class="diff-card"><span class="diff-icon">📍</span><h3>Perto de você</h3><p>Uma opção para quem está em Samambaia Norte e região, em Brasília.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonials" id="depoimentos">
+      <div class="container">
+        <div class="section-head center">
+          <span class="eyebrow">Uma boa experiência merece ser contada</span>
+          <h2>Quem ama pizza, <span style="color:var(--red)">compartilha.</span></h2>
+          <p class="section-intro">Sua opinião ajuda a Vaporetto a ficar cada vez melhor. Já pediu com a gente? Conte como foi sua experiência!</p>
+        </div>
+        <div class="review-grid">
+          <article class="review-card"><div class="stars" aria-label="Cinco estrelas">★★★★★</div><blockquote>“Pizza boa fica ainda melhor quando é compartilhada com quem a gente gosta.”</blockquote><div class="review-person"><span class="avatar">V</span><span>Um momento Vaporetto<small style="display:block;color:var(--muted);font-weight:400;margin-top:3px">Família e amigos</small></span></div></article>
+          <article class="review-card"><div class="stars" aria-label="Cinco estrelas">★★★★★</div><blockquote>“A noite de pizza é aquele plano simples que sempre dá certo.”</blockquote><div class="review-person"><span class="avatar">P</span><span>Seu próximo encontro<small style="display:block;color:var(--muted);font-weight:400;margin-top:3px">Noite especial</small></span></div></article>
+          <article class="review-card"><div class="stars" aria-label="Cinco estrelas">★★★★★</div><blockquote>“Escolher os sabores, chamar a galera e aproveitar: não precisa de muito mais.”</blockquote><div class="review-person"><span class="avatar">🍕</span><span>Uma pausa gostosa<small style="display:block;color:var(--muted);font-weight:400;margin-top:3px">Seu momento</small></span></div></article>
+        </div>
+        <p style="text-align:center;color:var(--muted);font-size:.75rem;margin:22px 0 0">Os textos acima são mensagens ilustrativas, não avaliações reais de clientes.</p>
+      </div>
+    </section>
+
+    <section class="about" id="sobre">
+      <div class="container about-grid">
+        <div class="about-visual">
+          <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1000&q=85" alt="Ambiente acolhedor de restaurante preparado para receber clientes" loading="lazy">
+        </div>
+        <div class="about-copy">
+          <span class="eyebrow">Prazer, somos a Vaporetto</span>
+          <h2>Mais que uma pizza.<br><span style="color:var(--red)">Um lugar para se encontrar.</span></h2>
+          <p>A Vaporetto quer fazer parte dos seus momentos especiais em Samambaia Norte, Brasília. Seja para uma noite tranquila, uma reunião com os amigos ou aquele almoço em família, pizza é sempre um bom começo.</p>
+          <p>Nosso convite é simples: escolha seus sabores, chame quem importa e aproveite. Para saber mais sobre o cardápio, atendimento e opções disponíveis, fale com a gente.</p>
+          <div class="about-points">
+            <div class="about-point"><span class="check">✓</span> Momentos em boa companhia</div>
+            <div class="about-point"><span class="check">✓</span> Sabores para diferentes gostos</div>
+            <div class="about-point"><span class="check">✓</span> Atendimento pelo WhatsApp</div>
+            <div class="about-point"><span class="check">✓</span> Em Samambaia Norte</div>
+          </div>
+          <a class="btn btn-red" href="https://wa.me/?text=Ol%C3%A1%2C%20Vaporetto!%20Gostaria%20de%20conhecer%20melhor%20a%20pizzaria." target="_blank" rel="noopener">Conheça a Vaporetto ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="location" id="localizacao">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Venha nos encontrar</span>
+          <h2>A Vaporetto está em <span style="color:var(--red)">Samambaia Norte.</span></h2>
+          <p class="section-intro">Estamos na região de Samambaia Norte, Brasília — DF. Consulte o endereço exato e confirme os horários de atendimento diretamente com a equipe.</p>
+        </div>
+        <div class="location-grid">
+          <div class="location-card">
+            <h3>Planeje sua visita</h3>
+            <div class="info-row"><span class="info-icon">📍</span><div><strong>Localização</strong><p>Samambaia Norte, Brasília – DF, Brasil</p></div></div>
+            <div class="info-row"><span class="info-icon">🕒</span><div><strong>Horários de funcionamento</strong><p>Consulte os horários atualizados pelo WhatsApp antes de sair.</p></div></div>
+            <div class="info-row"><span class="info-icon">💬</span><div><strong>Fale com a gente</strong><p>Consulte cardápio, disponibilidade, formas de atendimento e como chegar.</p></div></div>
+            <a class="btn btn-red" style="margin-top:22px;width:100%" href="https://wa.me/?text=Ol%C3%A1%2C%20Vaporetto!%20Pode%20me%20informar%20o%20endere%C3%A7o%20exato%20e%20os%20hor%C3%A1rios%20de%20funcionamento%3F" target="_blank" rel="noopener">Confirmar endereço e horário ↗</a>
+            <p class="hours-note">O endereço completo e os horários ainda precisam ser confirmados pela pizzaria para evitar informações incorretas.</p>
+          </div>
+          <div class="map-card">
+            <iframe title="Mapa de Samambaia Norte, Brasília" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Samambaia%20Norte%2C%20Bras%C3%ADlia%20DF&output=embed" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div class="container cta-inner">
+        <div><h2>Hoje combina com pizza. E pizza combina com Vaporetto.</h2><p>Chame a gente e descubra os sabores disponíveis para o seu próximo momento especial.</p></div>
+        <a class="btn" href="https://wa.me/?text=Ol%C3%A1%2C%20Vaporetto!%20Quero%20pedir%20uma%20pizza." target="_blank" rel="noopener">Vamos conversar no WhatsApp ↗</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-main">
+        <div>
+          <a class="brand" href="#inicio"><span class="brand-mark" aria-hidden="true">🍕</span><span>vaporetto<small>PIZZARIA</small></span></a>
+          <p class="footer-description">Pizza, boas conversas e momentos para compartilhar. Esperamos você em Samambaia Norte, Brasília.</p>
+        </div>
+        <nav class="footer-links" aria-label="Links do rodapé">
+          <a href="#inicio">Início</a><a href="#servicos">Cardápio</a><a href="#sobre">Sobre</a><a href="#localizacao">Como chegar</a>
+          <a href="https://wa.me/?text=Ol%C3%A1%2C%20Vaporetto!" target="_blank" rel="noopener">WhatsApp ↗</a>
+        </nav>
+      </div>
+      <div class="copyright"><span>© <span id="year">2026</span> Vaporetto Pizzaria. Todos os direitos reservados.</span><span>Feito para aproximar pessoas — uma pizza de cada vez. 🍕</span></div>
+    </div>
+  </footer>
+
+  <a class="whatsapp-float" href="https://wa.me/?text=Ol%C3%A1%2C%20Vaporetto!%20Quero%20saber%20mais%20sobre%20o%20card%C3%A1pio." target="_blank" rel="noopener" aria-label="Chamar a Vaporetto no WhatsApp">
+    <span class="whatsapp-label">Fale com a Vaporetto</span>
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.5 11.7a8.4 8.4 0 0 1-12.4 7.4L3 20.3l1.2-4.9a8.4 8.4 0 1 1 16.3-3.7Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.2 7.8c.2-.4.4-.4.7-.4h.5c.2 0 .4.1.5.4l.8 1.8c.1.2.1.4-.1.6l-.6.7c-.2.2-.2.4 0 .6.5.9 1.2 1.6 2.1 2.1.2.1.4.1.6-.1l.8-.9c.2-.2.4-.2.6-.1l1.7.8c.3.1.4.3.4.5 0 .4-.2 1.2-.7 1.6-.5.4-1.1.6-1.8.5-1-.1-2.3-.7-3.7-1.9-1.6-1.4-2.6-3.1-2.8-4.2-.2-.9.2-1.6.6-2Z" fill="currentColor"/></svg>
+  </a>
+
+  <script>
+    const toggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('.nav-links');
+    toggle.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+      toggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+      toggle.textContent = isOpen ? '×' : '☰';
+    });
+    nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      nav.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Abrir menu');
+      toggle.textContent = '☰';
+    }));
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
